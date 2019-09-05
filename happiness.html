@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="chart1_div" style="width: 2000px; height: 400px;">
+        <button id="app" @click="Data">영화관 통계 차트 그리기</button>
+    </div>
+
+    <div id="chart1_div" style="width: 2000px; height: 400px;">
+        <button id="app" v-on:click="Data">행복지수 차트 그리기</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        var list = [];
+        new Vue({
+            el: '#app',
+            methods: {
+                Data: function () {
+                    axios.get('http://localhost:8060/Project_Happiness/theater.jsp')
+                        .then(function (resData) {
+                            console.log(resData);
+                            var size = resData.data.length;
+                            var keys = Object.keys(resData.data[0]);
+
+                            list.push(keys);
+                            resData.data.forEach(function (str) {
+                                var a1 = [];
+                                a1.push(str.자치구);
+                                a1.push(parseInt(str.스크린수));
+                                list.push(a1);
+                            });
+                            console.log(list);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    axios.get("http://localhost:8060/Project_Happiness/happiness.jsp")
+                        .then(function (resData) {
+                            let dataArray = eval(resData.data);
+                            let happyArray = [];
+                            console.log(dataArray[1][1])
+                            for (let i = 0; i < dataArray.length; i++) {
+                        
+                                 list[i].push(dataArray[i][1]);
+                                // console.log(dataArray[i][1])
+                                
+                            }
+                            
+                            console.log(list);
+                            drawChart1(list);
+                        })
+                        .catch(function (error) {
+                            console.log("비정상 응답", error);
+                        });
+                }
+            }
+        })
+
+
+        google.charts.load('current', { 'packages': ['bar'] });
+
+        function drawChart1(dataarray) {
+            var data = google.visualization.arrayToDataTable(dataarray);
+
+            var options = {
+                chart: {
+                    title: '서울시 문화공간(영화관) 통계',
+                },
+                bars: 'vertical',
+                vAxis: { format: 'decimal' },
+                height: 1000,
+                colors: ['#1b9e77']
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('chart1_div'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+
+            var btns = document.getElementById('app');
+
+            btns.onclick = function (e) {
+
+                if (e.target.tagName === 'BUTTON') {
+                    options.vAxis.format = e.target.id === 'none' ? '' : e.target.id;
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
+                }
+            }
+        }
+
+
+        function drawChart2(dataArray) {
+            var data = google.visualization.arrayToDataTable(dataArray);
+            var options = {
+                title: '서울시 지역별 행복지수 ',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart2_div'));
+
+            chart.draw(data, options);
+        }
+
+
+    </script>
+
+</body>
+
+</html>
