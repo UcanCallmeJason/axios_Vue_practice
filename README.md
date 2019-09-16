@@ -12,8 +12,9 @@
   * Chrome Browser
   
 ## 개발 방식
-  1. 경량한 개발을 위해 Java로 API 데이터 전처리
-  2. jsp로 서버 구동 후 Vue 객체 내부에 axios로 데이터 get하여 google draw chart API를 사용
+  1. 경량한 개발을 위해 Postman을 이용한 REST API 데이터를 get방식으로 확인
+  2. Java로 API 데이터 전처리
+  3. jsp로 서버 구동 후 Vue 객체 내부에 axios로 데이터 get하여 google draw chart API를 사용
   
 ## Skill set
   * Back end development language : java / jsp
@@ -21,6 +22,7 @@
   * 지역별 영화관 통계 API
   * 서울시 주민 생활 행복지수 통계 API
   * Google Chart API
+  * Postman
   
 
 ## draw chart data screenshot
