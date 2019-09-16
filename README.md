@@ -13,7 +13,7 @@
   
 ## 개발 방식
   1. 경량한 개발을 위해 Java로 API 데이터 전처리
-  2. jsp로 서버 구동 후 axios로 호출하여 google draw chart API를 사용
+  2. jsp로 서버 구동 후 Vue 객체 내부에 axios로 데이터 get하여 google draw chart API를 사용
   
 ## Skill set
   * 지역별 영화관 통계 API
