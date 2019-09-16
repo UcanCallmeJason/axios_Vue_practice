@@ -16,9 +16,12 @@
   2. jsp로 서버 구동 후 Vue 객체 내부에 axios로 데이터 get하여 google draw chart API를 사용
   
 ## Skill set
+  * Back end development language : java / jsp
+  * Front end development language : javascript (Vue, axios) / html  
   * 지역별 영화관 통계 API
   * 서울시 주민 생활 행복지수 통계 API
-  * Google Chart
+  * Google Chart API
+  
 
 ## draw chart data screenshot
 ![compareData](https://user-images.githubusercontent.com/40975942/64933209-ef132900-d87e-11e9-93e2-363ef579a5b3.JPG)
